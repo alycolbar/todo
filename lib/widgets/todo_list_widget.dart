@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'add_task_widget.dart';
 
 class TodoListWidget extends StatefulWidget {
   @override
@@ -6,34 +7,30 @@ class TodoListWidget extends StatefulWidget {
 }
 
 class _TodoListWidgetState extends State<TodoListWidget> {
-
-  Widget _buildTask (int index) {
+  Widget _buildTask(int index) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 25.0),
       child: Column(
         children: <Widget>[
           ListTile(
-          title: Text('Task Title'), 
-          subtitle: Text('Mar 1, 2021 · High'),
-          trailing: Checkbox(
-             onChanged: (value) {
-             print(value);
-           },
-          activeColor: Theme.of(context).primaryColor,
-          value: true,
-           ), //Checkbox
+            title: Text('Task Title'),
+            subtitle: Text('Mar 1, 2021 · High'),
+            trailing: Checkbox(
+              onChanged: (value) {
+                print(value);
+              },
+              activeColor: Theme.of(context).primaryColor,
+              value: true,
+            ), //Checkbox
           ), // ListTile
           Divider(
             color: Colors.black,
             thickness: 1,
           ), // Divider
         ], // <Widget>[]
-      ), // Column 
-  ); // Padding
-  
-}
-
-
+      ), // Column
+    ); // Padding
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +38,12 @@ class _TodoListWidgetState extends State<TodoListWidget> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
         child: Icon(Icons.add),
-        onPressed: () => print("Navigate to add task screen"),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => AddTaskWidget(),
+          ), // MaterialPageRoute
+        ),
       ), //floatingActionButton
       body: ListView.builder(
         padding: EdgeInsets.symmetric(vertical: 80.0),
