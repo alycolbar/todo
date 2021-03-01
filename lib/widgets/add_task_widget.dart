@@ -26,7 +26,7 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
       setState(() {
         _date = date;
       });
-      _dateController.text = _date.toString();
+      _dateController.text = _dateFormatter.format(date);
     }
   }
 
