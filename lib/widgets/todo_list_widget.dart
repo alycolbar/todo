@@ -16,7 +16,7 @@ class _TodoListWidgetState extends State<TodoListWidget> {
       ), //floatingActionButton
       body: ListView.builder(
         padding: EdgeInsets.symmetric(vertical: 80.0),
-        itemCount: 1,
+        itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
             return Padding(
@@ -45,6 +45,12 @@ class _TodoListWidgetState extends State<TodoListWidget> {
               ), // Column
             ); // Padding
           }
+          return Container(
+            margin: EdgeInsets.all(10.0),
+            height: 100.0, 
+            width: double.infinity, 
+            color: Colors.red,
+          ); // Container
         },
       ), // ListView.builder
     ); // Scaffold
