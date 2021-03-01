@@ -10,17 +10,25 @@ class _TodoListWidgetState extends State<TodoListWidget> {
   Widget _buildTask (int index) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 25.0),
-      child: ListTile(
-      title: Text('Task Title'), 
-      subtitle: Text('Mar 1, 2021 · High'),
-      trailing: Checkbox(
-        onChanged: (value) {
-        print(value);
-      },
-      activeColor: Theme.of(context).primaryColor,
-      value: true,
-      ), //Checkbox
-    ), // ListTile
+      child: Column(
+        children: <Widget>[
+          ListTile(
+          title: Text('Task Title'), 
+          subtitle: Text('Mar 1, 2021 · High'),
+          trailing: Checkbox(
+             onChanged: (value) {
+             print(value);
+           },
+          activeColor: Theme.of(context).primaryColor,
+          value: true,
+           ), //Checkbox
+          ), // ListTile
+          Divider(
+            color: Colors.black,
+            thickness: 1,
+          ), // Divider
+        ], // <Widget>[]
+      ), // Column 
   ); // Padding
   
 }
