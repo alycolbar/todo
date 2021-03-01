@@ -6,6 +6,27 @@ class TodoListWidget extends StatefulWidget {
 }
 
 class _TodoListWidgetState extends State<TodoListWidget> {
+
+  Widget _buildTask (int index) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 25.0),
+      child: ListTile(
+      title: Text('Task Title'), 
+      subtitle: Text('Mar 1, 2021 · High'),
+      trailing: Checkbox(
+        onChanged: (value) {
+        print(value);
+      },
+      activeColor: Theme.of(context).primaryColor,
+      value: true,
+      ), //Checkbox
+    ), // ListTile
+  ); // Padding
+  
+}
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,12 +66,7 @@ class _TodoListWidgetState extends State<TodoListWidget> {
               ), // Column
             ); // Padding
           }
-          return Container(
-            margin: EdgeInsets.all(10.0),
-            height: 100.0, 
-            width: double.infinity, 
-            color: Colors.red,
-          ); // Container
+          return _buildTask(index);
         },
       ), // ListView.builder
     ); // Scaffold
