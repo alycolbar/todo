@@ -11,7 +11,38 @@ class _TodoListWidgetState extends State<TodoListWidget> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(Icons.add),
+        onPressed: () => print("Navigate to add task screen"),
       ), //floatingActionButton
+      body: ListView.builder(
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int index) {
+          if (index == 0) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'My Tasks',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                  ), //TextStyle
+                ), // Text
+                SizedBox(height: 10.0),
+                Text(
+                  '1 of 10',
+                  style: TextStyle(
+                    color: Colors.gray,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w600,
+                  ), //TextStyle
+                ), //Text
+              ], // <Widget>
+            ); // Column
+          }
+        },
+      ), // ListView.builder
     ); // Scaffold
   }
 }
