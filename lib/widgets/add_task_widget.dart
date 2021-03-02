@@ -26,6 +26,12 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
     _dateController.text = _dateFormatter.format(_date);
   }
 
+  @override
+  void dispose() {
+    _dateController.dispose();
+    super.dispose();
+  }
+
   _handleDatePicker() async {
     final DateTime date = await showDatePicker(
       context: context,
