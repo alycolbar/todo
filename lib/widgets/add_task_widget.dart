@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'models/task_model.dart';
 import 'package:intl/intl.dart';
 
 class AddTaskWidget extends StatefulWidget {
+  final function updateTaskList;
+  final Task task;
+
+  AddTaskWidget({this.updateTaskList, this.task});
+
   @override
   _AddTaskWidgetState createState() => _AddTaskWidgetState();
 }
@@ -23,6 +29,13 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
   @override
   void initState() {
     super.initState();
+
+    if (widget.task != null) {
+      _title = widget.task.title;
+      _date = widget.task.date;
+      _priority = widget.task.priority;
+    }
+
     _dateController.text = _dateFormatter.format(_date);
   }
 
@@ -53,7 +66,15 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
       print('$_title, $_date, $_priority');
 
       //Insert task to user database
-
+      Task task = Task(title: _title, date: _date, priority: _priority);
+      if (widget.task == null) {
+        task.status = 0;
+        DatabaseHelper.instance.insertTask(task);
+      } else {
+        task.status = widget.task.status;
+        DatabaseHelper.instace.updateTask(task);
+      }
+      widget.updateTaskList();
       //Update database
       Navigator.pop(context);
     }
