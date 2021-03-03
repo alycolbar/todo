@@ -37,14 +37,31 @@ class _TodoListWidgetState extends State<TodoListWidget> {
                 decoration: task.status == 0 ? TextDecoration.none : TextDecoration.lineThrough,
               ), // TextStyle
             ), // Text
-            subtitle: Text('${_dateFormatter.format(task.date)} • ${task.priority}'),
+            subtitle: Text(
+              '${_dateFormatter.format(task.date)} • ${task.priority}',
+              style: TextStyle(
+                fontSize: 15.0,
+                decoration: task.status == 0 ? TextDecoration.none : TextDecoration.lineThrough,
+              ), // TextStyle
+            ), // Text
             trailing: Checkbox(
               onChanged: (value) {
-                print(value);
+                task.status = value ? 1 : 0;
+                DatabaseHelper.instance.updateTask(task);
+                _updateTaskList();
               },
               activeColor: Theme.of(context).primaryColor,
               value: true,
             ), //Checkbox
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => AddTaskWidget(
+                  updateTaskList: _updateTaskList,
+                  task: task,
+                ),
+              ), // MaterialPageRoute
+            ), // Navigator
           ), // ListTile
           Divider(
             color: Colors.black,
@@ -64,7 +81,9 @@ class _TodoListWidgetState extends State<TodoListWidget> {
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => AddTaskWidget(),
+              builder: (_) => AddTaskWidget(
+                updateTaskList: _updateTaskList,
+              ), // AddTaskWidget
             ), // MaterialPageRoute
           ),
         ), //floatingActionButton
