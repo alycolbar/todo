@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'helpers/database_helper.dart';
 import 'models/task_model.dart';
-import 'add_task_widget.dart';
+import 'widgets/add_task_widget.dart';
 
 class TodoListWidget extends StatefulWidget {
   @override
@@ -51,7 +51,7 @@ class _TodoListWidgetState extends State<TodoListWidget> {
                 _updateTaskList();
               },
               activeColor: Theme.of(context).primaryColor,
-              value: true,
+              value: task.status == 1 ? true : false,
             ), //Checkbox
             onTap: () => Navigator.push(
               context,
