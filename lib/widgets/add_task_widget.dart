@@ -60,6 +60,12 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
     }
   }
 
+  _delete() {
+    DatabaseHelper.instance.deleteTask(widget.task.id);
+    widget.updateTaskList();
+    Navigator.pop(context);
+  }
+
   _submit() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
@@ -71,6 +77,8 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
         task.status = 0;
         DatabaseHelper.instance.insertTask(task);
       } else {
+        // update the task
+        task.id = widget.task.id;
         task.status = widget.task.status;
         DatabaseHelper.instace.updateTask(task);
       }
@@ -101,7 +109,7 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
                 ), // GestureDetector
                 SizedBox(height: 20.0),
                 Text(
-                  'Add Task',
+                  widget.task == null ? 'Add Task' : 'Update Task',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 40.0,
@@ -188,7 +196,7 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
                         decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(30.0)), // BoxDecoration
                         child: FlatButton(
                           child: Text(
-                            "Add",
+                            widget.task == null ? 'Add' : 'Update',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
@@ -197,6 +205,24 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
                           onPressed: _submit,
                         ), // FlatButton
                       ), // Container
+                      widget.task != null
+                          ? Container(
+                              margin: EdgeInsets.symmetric(vertical: 20.0),
+                              height: 60.0,
+                              width: double.infinity,
+                              decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(30.0)), // BoxDecoration
+                              child: FlatButton(
+                                child: Text(
+                                  'Delete',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0,
+                                  ), // TextStyle
+                                ), // Text
+                                onPressed: _delete,
+                              ), // FlatButton
+                            ) // Container
+                          : SizedBox.shrink(),
                     ], // <Widget> []
                   ), // Column
                 ), // Form
